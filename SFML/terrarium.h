@@ -9,9 +9,11 @@ public:
 	enum class mapType{ pusta, krzyz, labirynt };
 	enum class moveType{up,down,right,left};
 	sf::Vector2i headPos;
-	sf::Vector2i tailPos;
 	int snakeLenght;
 	std::vector<std::vector<Pole *>> plansza;
+	sf::Font arial;
+	sf::Text scoreText;
+	bool initializeFonts();
 	sf::Texture grassTexture, bodyTexture, headTexture,fruitTexture;
 	bool readTexture(std::string, sf::Texture *);
 	bool prepareTextures();
@@ -27,7 +29,7 @@ public:
 	void extendSnake();
 	int generateRandomNumber();
 	void generateFruit();
-	//void updateGameState(sf::Clock);
+	void updateGameState(sf::RenderWindow *,sf::Clock*, sf::Clock*);
 
 	void endGame();
 };

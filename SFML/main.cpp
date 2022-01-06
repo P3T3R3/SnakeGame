@@ -4,27 +4,18 @@
 #include <iostream>
 int main()
 {
-    Terrarium terrarium = Terrarium(Terrarium::mapType::pusta);
-    int windowWidth= terrarium.rozmiarPlanszy * 50, windowHeight= terrarium.rozmiarPlanszy * 50;
-
-    sf::Font arial;
-    if (!arial.loadFromFile("C:/Windows/Fonts/Arial.ttf"))
-        std::cout << "Nie udalo sie wczytaæ czcionki\n";
-    sf::Text score;
-    score.setFont(arial);
-    score.setPosition(sf::Vector2f(350, 0));
-
+    Terrarium terrarium = Terrarium(Terrarium::mapType::pusta); 
+    //obiekt ktory zajmuje sie logik¹ i wyœwietlaniem gry
+    int windowWidth= terrarium.rozmiarPlanszy * 50,
+        windowHeight= terrarium.rozmiarPlanszy * 50;
     sf::Clock fruitClock, gameClock; //zegary gry
-
     sf::RenderWindow window(
         sf::VideoMode(windowWidth, windowHeight),
         "Snake");
     unsigned int fps = 60;
     window.setFramerateLimit(fps);
-    
     while (window.isOpen())
     {
-        
         sf::Event event;
         while (
             window.pollEvent(event)) {
@@ -54,47 +45,15 @@ int main()
                     terrarium.changeDirection(Terrarium::moveType::left);
                     break;
                 }
+                //zmiana kierunku poruszania siê wê¿a
+                //niedozwolona jest zmiana kierunku o 180 stopni
                 break;
             default:
                 break;
             }
         }
         window.clear();
-        for (int i = 0; i < terrarium.rozmiarPlanszy; i++) {
-            for (int j = 0; j < terrarium.rozmiarPlanszy; j++) {
-                window.draw(terrarium.plansza[i][j]->sprite);
-            }
-        }
-        if (!terrarium.isEnd) {
-            if (gameClock.getElapsedTime() >= sf::milliseconds(150)) {
-                terrarium.move();
-                gameClock.restart();
-                score.setString(std::to_string(terrarium.snakeLenght));
-            }
-        }
-        else {
-            std::cout << "Koniec gry!" << std::endl;
-            std::cout << "Twoj wynik to " <<terrarium.snakeLenght<< std::endl;
-            score.setString("Koniec gry!\nTwoj wynik to " + std::to_string(terrarium.snakeLenght));
-            score.setOrigin(sf::Vector2f(score.getGlobalBounds().width/2,score.getGlobalBounds().height/2));
-            score.setPosition(sf::Vector2f(windowWidth/2, windowHeight/2));
-            
-            window.draw(score);
-            window.display();
-            sf::sleep(sf::milliseconds(5000));
-            window.close();
-            return 0;
-        }
-
-        if (fruitClock.getElapsedTime() >= sf::seconds(3)) {
-            terrarium.generateFruit();
-            fruitClock.restart();
-        }
-
-        
-       
-        
-        window.draw(score);
+        terrarium.updateGameState(&window,&gameClock,&fruitClock);
         window.display();
     }
     return 0;
