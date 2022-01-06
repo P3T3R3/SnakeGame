@@ -2,7 +2,7 @@
 #include <Windows.h>
 #include "terrarium.h"
 #include <iostream>
-int main()
+int main()//przetwarza sterowanie u¿ytkownika, renderuje okno, tworzy obiekt gry
 {
     Terrarium terrarium = Terrarium(Terrarium::mapType::pusta); 
     //obiekt ktory zajmuje sie logik¹ i wyœwietlaniem gry

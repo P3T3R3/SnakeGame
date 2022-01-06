@@ -1,8 +1,7 @@
 #include "pole.h"
 #include <iostream>
 
-//std::string textureName=""
-	Pole::Pole(sf::Texture*texture, float x=0, float y=0, bool czySciana=0) {
+	Pole::Pole(sf::Texture*texture, float x, float y, bool czySciana=0) {
 		if (!setSprite(texture))
 			return;
 		pos = sf::Vector2f(x, y);

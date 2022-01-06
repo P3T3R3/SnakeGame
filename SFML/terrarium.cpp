@@ -9,6 +9,8 @@ Terrarium::Terrarium(mapType rodzajMapy) {
 	scoreText.setFont(arial);
 	scoreText.setPosition(sf::Vector2f(rozmiarPlanszy*50 - 40, 0));
 	scoreText.setFillColor(sf::Color(0, 0, 0, 255));
+	scoreText.setOutlineColor(sf::Color(255, 255, 255, 255));
+	scoreText.setOutlineThickness(3);
 	prepareTextures();
 	setUpTiles(); 
 	
@@ -138,26 +140,14 @@ void Terrarium::updateGameState(sf::RenderWindow *window, sf::Clock *gameClock, 
 	}
 	if (!isEnd) {
 		if (gameClock->getElapsedTime() >= sf::milliseconds(150)) {
+			scoreText.setString(std::to_string(snakeLenght));
 			move();
 			gameClock->restart();
-			scoreText.setString(std::to_string(snakeLenght));
 		}
-	}
-	else {
-		std::cout << "Koniec gry!" << std::endl;
-		std::cout << "Twoj wynik to " << snakeLenght << std::endl;
-		scoreText.setString("Koniec gry!\nTwoj wynik to " + std::to_string(snakeLenght));
-		scoreText.setOrigin(sf::Vector2f(scoreText.getGlobalBounds().width / 2, scoreText.getGlobalBounds().height / 2));
-		scoreText.setPosition(sf::Vector2f(rozmiarPlanszy*50 / 2, rozmiarPlanszy*50 / 2));
-
-		window->draw(scoreText);
-		window->display();
-		window->close();
-	}
-
-	if (fruitClock->getElapsedTime() >= sf::seconds(3)) {
-		generateFruit();
-		fruitClock->restart();
+		if (fruitClock->getElapsedTime() >= sf::seconds(3)) {
+			generateFruit();
+			fruitClock->restart();
+		}
 	}
 
 	window->draw(scoreText);
@@ -237,6 +227,12 @@ void Terrarium::move() {
 	plansza[headPos.x][headPos.y]->setSprite(&headTexture);
 }
 void Terrarium::endGame(){
-	//plansza.clear();
 	isEnd = true;
+	std::cout << "Koniec gry!" << std::endl;
+	std::cout << "Twoj wynik to " << snakeLenght << std::endl;
+	scoreText.setString("Koniec gry!\nTwoj wynik to " + std::to_string(snakeLenght));
+	scoreText.setOrigin(sf::Vector2f(scoreText.getGlobalBounds().width / 2, scoreText.getGlobalBounds().height / 2));
+	scoreText.setPosition(sf::Vector2f(rozmiarPlanszy * 50 / 2, rozmiarPlanszy * 50 / 2));
+
+	
 }
