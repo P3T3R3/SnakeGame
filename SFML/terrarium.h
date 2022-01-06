@@ -13,8 +13,8 @@ public:
 	int snakeLenght;
 	std::vector<std::vector<Pole *>> plansza;
 	sf::Texture grassTexture, bodyTexture, headTexture,fruitTexture;
-	bool readTexture(std::string name,sf::Texture *texture);
-	void prepareTextures();
+	bool readTexture(std::string, sf::Texture *);
+	bool prepareTextures();
 	int rozmiarPlanszy;
 	Terrarium(mapType);
 	mapType typMapy;
@@ -27,6 +27,7 @@ public:
 	void extendSnake();
 	int generateRandomNumber();
 	void generateFruit();
+	//void updateGameState(sf::Clock);
 
 	void endGame();
 };

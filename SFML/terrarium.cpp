@@ -4,20 +4,29 @@
 Terrarium::Terrarium(mapType typMapy) {
 	typMapy = typMapy;
 	rozmiarPlanszy = 8;
+	prepareTextures();
 	setUpInitialState();
 	setUpTiles(); 
 	isEnd = false;
 	typRuchu = moveType::right;
-	snakeLenght = 5;
+	snakeLenght = 1;
 }
-void Terrarium::prepareTextures()
+bool Terrarium::prepareTextures()
 {
-	
+	if (
+		readTexture("media/textures/head.png", &headTexture) &&
+		readTexture("media/textures/snake.png", &bodyTexture) &&
+		readTexture("media/textures/trawa.png", &grassTexture) &&
+		readTexture("media/textures/owoc.png", &fruitTexture)
+		)
+		return true;
+	else
+		return false;
 }
 bool Terrarium::readTexture(std::string name, sf::Texture *texture)
 {
 	if (!texture->loadFromFile(name)) {
-		std::cout << "Blad ladowania textury" << std::endl;
+		std::cout << "Blad ladowania textury " <<name<< std::endl;
 		return false;
 	}
 	texture->setSmooth(true);
@@ -30,49 +39,49 @@ void Terrarium::setUpTiles() {
 	plansza.clear();
 	std::vector<Pole*> pierwszyRzad;
 	for (int i = 0; i < rozmiarPlanszy; i++) {
-		pierwszyRzad.push_back(new Pole("media/textures/trawa.jpg", i*50, 0, false));
+		pierwszyRzad.push_back(new Pole(&grassTexture, i*50, 0, false));
 	}
 	plansza.push_back(pierwszyRzad);
 
 	std::vector<Pole*> drugiRzad;
 	for (int i = 0; i < rozmiarPlanszy; i++) {
-		drugiRzad.push_back(new Pole("media/textures/trawa.jpg", i * 50, 50, false));
+		drugiRzad.push_back(new Pole(&grassTexture, i * 50, 50, false));
 	}
 	plansza.push_back(drugiRzad);
 
 	std::vector<Pole*> trzeciRzad;
 	for (int i = 0; i < rozmiarPlanszy; i++) {
-		trzeciRzad.push_back(new Pole("media/textures/trawa.jpg", i * 50, 100, false));
+		trzeciRzad.push_back(new Pole(&grassTexture, i * 50, 100, false));
 	}
 	plansza.push_back(trzeciRzad);
 
 	std::vector<Pole*> czwartyRzad;
 	for (int i = 0; i < rozmiarPlanszy; i++) {
-		czwartyRzad.push_back(new Pole("media/textures/trawa.jpg", i * 50, 150, false));
+		czwartyRzad.push_back(new Pole(&grassTexture, i * 50, 150, false));
 	}
 	plansza.push_back(czwartyRzad);
 
 	std::vector<Pole*> piatyRzad;
 	for (int i = 0; i < rozmiarPlanszy; i++) {
-		piatyRzad.push_back(new Pole("media/textures/trawa.jpg", i * 50, 200, false));
+		piatyRzad.push_back(new Pole(&grassTexture, i * 50, 200, false));
 	}
 	plansza.push_back(piatyRzad);
 
 	std::vector<Pole*> szostyRzad;
 	for (int i = 0; i < rozmiarPlanszy; i++) {
-		szostyRzad.push_back(new Pole("media/textures/trawa.jpg", i * 50, 250, false));
+		szostyRzad.push_back(new Pole(&grassTexture, i * 50, 250, false));
 	}
 	plansza.push_back(szostyRzad);
 
 	std::vector<Pole*> siodmyRzad;
 	for (int i = 0; i < rozmiarPlanszy; i++) {
-		siodmyRzad.push_back(new Pole("media/textures/trawa.jpg", i * 50, 300, false));
+		siodmyRzad.push_back(new Pole(&grassTexture, i * 50, 300, false));
 	}
 	plansza.push_back(siodmyRzad);
 
 	std::vector<Pole*> osmyRzad;
 	for (int i = 0; i < rozmiarPlanszy; i++) {
-		osmyRzad.push_back(new Pole("media/textures/trawa.jpg", i * 50, 350, false));
+		osmyRzad.push_back(new Pole(&grassTexture, i * 50, 350, false));
 	}
 	plansza.push_back(osmyRzad);
 }
@@ -90,23 +99,18 @@ void Terrarium::extendSnake() {
 		}
 	}
 }
-int Terrarium::generateRandomNumber()
+void Terrarium::generateFruit()
 {
-	int a, b;
 	std::random_device dev;
 	std::mt19937 generator(dev());
 	std::uniform_int_distribution<> dist(0, rozmiarPlanszy - 1);
-	return dist(generator);
-}
-void Terrarium::generateFruit()
-{
 	int x,y;
 	do {
-		x = generateRandomNumber();
-		y = generateRandomNumber();
+		x = dist(generator);
+		y = dist(generator);
 	} while (plansza[x][y]->isEmpty==false&& plansza[x][y]->isFruit==false);
 	plansza[x][y]->isFruit = true;
-	plansza[x][y]->setSprite("media/textures/owoc.png");
+	plansza[x][y]->setSprite(&fruitTexture);
 }
 
 void Terrarium::move() {
@@ -117,7 +121,7 @@ void Terrarium::move() {
 		for (int j = 0; j < rozmiarPlanszy; j++)
 		{
 			if (plansza[i][j]->snakeWeight == 1) {
-				plansza[i][j]->setSprite("media/textures/trawa.jpg");
+				plansza[i][j]->setSprite(&grassTexture);
 				plansza[i][j]->isEmpty = true;
 				plansza[i][j]->snakeWeight= 0;
 			}else
@@ -125,7 +129,8 @@ void Terrarium::move() {
 				plansza[i][j]->snakeWeight--;
 		}
 	}
-	plansza[headPos.x][headPos.y]->setSprite("media/textures/snake.png");
+	if(snakeLenght>1)
+		plansza[headPos.x][headPos.y]->setSprite(&bodyTexture);
 	switch (typRuchu)
 	{
 	case Terrarium::moveType::up:
@@ -179,7 +184,7 @@ void Terrarium::move() {
 	}
 	plansza[headPos.x][headPos.y]->snakeWeight = snakeLenght;
 	plansza[headPos.x][headPos.y]->isEmpty=false;
-	plansza[headPos.x][headPos.y]->setSprite("media/textures/head.png");
+	plansza[headPos.x][headPos.y]->setSprite(&headTexture);
 }
 void Terrarium::endGame(){
 	//plansza.clear();
