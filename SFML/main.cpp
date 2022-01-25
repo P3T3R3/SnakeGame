@@ -51,6 +51,7 @@ struct Button {
 };
 int main()//przetwarza sterowanie u¿ytkownika, renderuje okno, tworzy obiekt gry
 {
+
     bool isEnd=true;
     while (isEnd) {
         Terrarium::mapType selectedMapType = Terrarium::mapType::pusta;

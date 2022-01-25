@@ -250,6 +250,15 @@ void Terrarium::restartGame()
 	setUpTiles();
 }
 
+void Terrarium::zapiszWynikDoPliku(std::string nazwaPliku)
+{
+	std::ofstream plik(nazwaPliku, std::ios::app);
+	if (!plik.is_open())
+		return;
+	plik << "Wynik: "<<snakeLenght<<std::endl;
+	plik.close();
+}
+
 void Terrarium::updateGameState(sf::RenderWindow *window, sf::Clock *gameClock, sf::Clock * fruitClock)
 {
 	for (int i = 0; i < rozmiarPlanszy; i++) {
@@ -366,6 +375,6 @@ void Terrarium::endGame(){
 	scoreText.setString("Koniec gry!\nTwoj wynik to " + std::to_string(snakeLenght));
 	scoreText.setOrigin(sf::Vector2f(scoreText.getGlobalBounds().width / 2, scoreText.getGlobalBounds().height / 2));
 	scoreText.setPosition(sf::Vector2f(rozmiarPlanszy * 50 / 2, rozmiarPlanszy * 50 / 2));
-
+	zapiszWynikDoPliku("wyniki.txt");
 	
 }

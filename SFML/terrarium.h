@@ -1,5 +1,6 @@
 #include "pole.h"
 #include <vector>
+#include <fstream>
 #ifndef TERRARIUM_H
 #define TERRARIUM_H
 class Terrarium
@@ -36,6 +37,7 @@ private:
 	
 
 	void endGame();
+	void zapiszWynikDoPliku(std::string nazwaPliku);
 	void restartGame();
 };
 #endif
