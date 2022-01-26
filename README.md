@@ -1,5 +1,5 @@
 # SnakeGame
-Simple Snake Game in C++ SFML
+Prosta gra w Wężyka napisana w C++ z użyciem biblioteki SFML. Projekt zaliczeniowy z przedmiotu "Programowanie I".
 <h3>Klikając w przycisk pod przyciskiem start możemy zmieniać typ mapy, klikając „start” rozpoczynamy grę, przyciskiem „wyjdz” wychodzimy.  </h3>
 <a href="https://postimages.org/" target="_blank"><img src="https://i.postimg.cc/zGwDT32W/Obraz1.png" alt="Obraz1"/></a><br/><br/>
 <h3>Do sterowania wężykiem używa się klawiszy strzałek. Celem gry jest zebranie jak największej ilości owoców bez trafienia na ciało węża lub ścianę(poza mapą pustą).</h3>
