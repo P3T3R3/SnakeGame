@@ -129,7 +129,7 @@ int main()//przetwarza sterowanie u¿ytkownika, renderuje okno, tworzy obiekt gry
                 sf::VideoMode(windowWidth, windowHeight),
                 "Snake");
 
-            unsigned int fps = 60;
+            unsigned int fps = 172;
             window.setFramerateLimit(fps);
             while (window.isOpen())
             {

@@ -232,6 +232,7 @@ void Terrarium::extendSnake() {
 }
 void Terrarium::generateFruit()
 {
+	//generuje owoc w losowym i wolnym miejscu na mapie
 	std::random_device dev;
 	std::mt19937 generator(dev());
 	std::uniform_int_distribution<> dist(0, rozmiarPlanszy - 1);
@@ -261,6 +262,11 @@ void Terrarium::zapiszWynikDoPliku(std::string nazwaPliku)
 
 void Terrarium::updateGameState(sf::RenderWindow *window, sf::Clock *gameClock, sf::Clock * fruitClock)
 {
+	/*
+	Odpowiada za wyœwietlanie planszy i tempo gry(wywo³uje move(); i generateFruit(); 
+	w odpowiednim czasie, ogranicza prêdkoœæ wê¿a i czêstotliwoœæ pojawiania siê owoców).
+	Gdy gra siê skoñczy gra jest zamra¿ana.
+	*/
 	for (int i = 0; i < rozmiarPlanszy; i++) {
 		for (int j = 0; j < rozmiarPlanszy; j++) {
 			window->draw(plansza[i][j]->sprite);
@@ -296,6 +302,13 @@ Terrarium::moveType Terrarium::getTypRuchu()
 }
 
 void Terrarium::move() {
+
+	/*
+	Zawiera algorytm, którego zadaniem jest sprawdzanie jak d³ugo poszczególny segment wê¿a pozostanie na danym polu.
+	Sprawdza on „wagê” wê¿a, jeœli waga osi¹gnie 1 to dane pole jest resetowane do stanu pustego, a jeœli jest wiêksza od 1 to zostaje pomniejszona o 1. 
+	Funkcja sprawdza równie¿ czy w¹¿ nie trafi w zajête pole(swoje cia³o lub œcianê), jeœli nie, to w¹¿ porusza siê na to miejsce, jeœli tak, to gra siê koñczy.
+	Nowo zajête pole otrzymuje wagê pola równ¹ d³ugoœci wê¿a, a tekstura jest aktualizowana.Wejœcie wê¿a na owoc zwiêksza jego d³ugoœæ o 1.
+	*/
 	//std::cout << "X = " << headPos.x << std::endl;
 	//std::cout << "Y = " << headPos.y << std::endl;
 	for (int i = 0; i < rozmiarPlanszy; i++)
