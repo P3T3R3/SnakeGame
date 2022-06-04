@@ -1,1 +1,6 @@
 Wynik: 1
+Score: 5
+Score: 1
+Score: 10
+Score: 1
+Score: 9

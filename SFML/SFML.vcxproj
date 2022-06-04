@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\menu.cpp" />
     <ClCompile Include="src\pole.cpp" />
     <ClCompile Include="src\terrarium.cpp" />
   </ItemGroup>
@@ -147,6 +148,8 @@
     <Image Include="media\textures\trawa.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\button.h" />
+    <ClInclude Include="include\menu.h" />
     <ClInclude Include="include\pole.h" />
     <ClInclude Include="include\terrarium.h" />
   </ItemGroup>
