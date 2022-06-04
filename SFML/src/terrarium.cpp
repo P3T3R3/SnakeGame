@@ -4,23 +4,24 @@
 Terrarium::Terrarium(mapType newMapType) {
 	typeOfMap = newMapType;
 	sizeOfBoard = 8;
-
 	setUpInitialState();
 	initializeFonts();
-	prepareTextures();
-	setUpTiles(); 
+	if(prepareTextures())
+		setUpTiles(); //setup tiles only when textures are loaded
 	
 }
 bool Terrarium::prepareTextures()
 {
 	if (
-		readTexture("media/textures/head.png", &headTexture) &&
-		readTexture("media/textures/snake.png", &bodyTexture) &&
-		readTexture("media/textures/trawa.png", &grassTexture) &&
-		readTexture("media/textures/owoc.png", &fruitTexture)&&
-		readTexture("media/textures/wall.png",&wallTexture)
-		)
+		readTexture("media/textures/head.png", headTexture) &&
+		readTexture("media/textures/snake.png", bodyTexture) &&
+		readTexture("media/textures/trawa.png", grassTexture) &&
+		readTexture("media/textures/owoc.png", fruitTexture) &&
+		readTexture("media/textures/wall.png", wallTexture)
+		){
+		std::cout << "Failed to read textures";
 		return true;
+		}
 	else
 		return false;
 }
@@ -32,13 +33,13 @@ bool Terrarium::initializeFonts()
 	}
 	return true;
 }
-bool Terrarium::readTexture(std::string name, sf::Texture *texture)
+bool Terrarium::readTexture(std::string name, sf::Texture &texture)
 {
-	if (!texture->loadFromFile(name)) {
+	if (!texture.loadFromFile(name)) {
 		std::cout << "Loading texture error" <<name<< std::endl;
 		return false;
 	}
-	texture->setSmooth(true);
+	texture.setSmooth(true);
 	return true;
 }
 void Terrarium::setUpInitialState() {
@@ -46,6 +47,7 @@ void Terrarium::setUpInitialState() {
 	headPos = sf::Vector2i(3,3);
 	moveDirection = moveType::right;
 	snakeLenght = 1;
+
 	scoreText.setFont(arial);
 	scoreText.setPosition(sf::Vector2f(sizeOfBoard * 50 - 40, 0));
 	scoreText.setOrigin(sf::Vector2f(0,0));
@@ -55,160 +57,160 @@ void Terrarium::setUpInitialState() {
 }
 void Terrarium::setUpTiles() {
 	board.clear();
-	std::vector<Pole*> pierwszyRzad, drugiRzad, trzeciRzad, czwartyRzad, piatyRzad, szostyRzad, siodmyRzad, osmyRzad;;
+	std::vector<Pole*> pierwszyRzad, drugiRzad, trzeciRzad, czwartyRzad, piatyRzad, szostyRzad, siodmyRzad, osmyRzad;
 	switch (typeOfMap)
 	{
 	case Terrarium::mapType::borders:
 		for (int i = 0; i < sizeOfBoard; i++) {
-			pierwszyRzad.push_back(new Pole(&wallTexture, i * 50, 0, true));
+			pierwszyRzad.push_back(new Pole(wallTexture, i * 50, 0, true));
 		}
 		board.push_back(pierwszyRzad);
 
-		drugiRzad.push_back(new Pole(&wallTexture,0, 50, true));
+		drugiRzad.push_back(new Pole(wallTexture,0, 50, true));
 		for (int i = 1; i < sizeOfBoard-1; i++) {
-			drugiRzad.push_back(new Pole(&grassTexture, i * 50, 50, false));
+			drugiRzad.push_back(new Pole(grassTexture, i * 50, 50, false));
 		}
-		drugiRzad.push_back(new Pole(&wallTexture, sizeOfBoard*50-50, 50, true));
+		drugiRzad.push_back(new Pole(wallTexture, sizeOfBoard*50-50, 50, true));
 		board.push_back(drugiRzad);
-		trzeciRzad.push_back(new Pole(&wallTexture, 0, 100, true));
+		trzeciRzad.push_back(new Pole(wallTexture, 0, 100, true));
 		for (int i = 1; i < sizeOfBoard-1; i++) {
-			trzeciRzad.push_back(new Pole(&grassTexture, i * 50, 100, false));
+			trzeciRzad.push_back(new Pole(grassTexture, i * 50, 100, false));
 		}
-		trzeciRzad.push_back(new Pole(&wallTexture, sizeOfBoard*50-50, 100, true));
+		trzeciRzad.push_back(new Pole(wallTexture, sizeOfBoard*50-50, 100, true));
 		board.push_back(trzeciRzad);
-		czwartyRzad.push_back(new Pole(&wallTexture, 0, 150, true));
+		czwartyRzad.push_back(new Pole(wallTexture, 0, 150, true));
 		for (int i = 1; i < sizeOfBoard-1; i++) {
-			czwartyRzad.push_back(new Pole(&grassTexture, i * 50, 150, false));
+			czwartyRzad.push_back(new Pole(grassTexture, i * 50, 150, false));
 		}
-		czwartyRzad.push_back(new Pole(&wallTexture, sizeOfBoard*50-50, 150, true));
+		czwartyRzad.push_back(new Pole(wallTexture, sizeOfBoard*50-50, 150, true));
 		board.push_back(czwartyRzad);
-		piatyRzad.push_back(new Pole(&wallTexture, 0, 200, true));
+		piatyRzad.push_back(new Pole(wallTexture, 0, 200, true));
 		for (int i = 1; i < sizeOfBoard-1; i++) {
-			piatyRzad.push_back(new Pole(&grassTexture, i * 50, 200, false));
+			piatyRzad.push_back(new Pole(grassTexture, i * 50, 200, false));
 		}
-		piatyRzad.push_back(new Pole(&wallTexture, sizeOfBoard*50-50, 200, true));
+		piatyRzad.push_back(new Pole(wallTexture, sizeOfBoard*50-50, 200, true));
 		board.push_back(piatyRzad);
-		szostyRzad.push_back(new Pole(&wallTexture, 0, 250, true));
+		szostyRzad.push_back(new Pole(wallTexture, 0, 250, true));
 		for (int i = 1; i < sizeOfBoard-1; i++) {
-			szostyRzad.push_back(new Pole(&grassTexture, i * 50, 250, false));
+			szostyRzad.push_back(new Pole(grassTexture, i * 50, 250, false));
 		}
-		szostyRzad.push_back(new Pole(&wallTexture, sizeOfBoard*50-50, 250, true));
+		szostyRzad.push_back(new Pole(wallTexture, sizeOfBoard*50-50, 250, true));
 		board.push_back(szostyRzad);
 
-		siodmyRzad.push_back(new Pole(&wallTexture, 0, 300, true));
+		siodmyRzad.push_back(new Pole(wallTexture, 0, 300, true));
 		for (int i = 1; i < sizeOfBoard-1; i++) {
-			siodmyRzad.push_back(new Pole(&grassTexture, i * 50, 300, false));
+			siodmyRzad.push_back(new Pole(grassTexture, i * 50, 300, false));
 		}
-		siodmyRzad.push_back(new Pole(&wallTexture,sizeOfBoard*50-50, 300, true));
+		siodmyRzad.push_back(new Pole(wallTexture,sizeOfBoard*50-50, 300, true));
 		board.push_back(siodmyRzad);
 
 		for (int i = 0; i < sizeOfBoard; i++) {
-			osmyRzad.push_back(new Pole(&wallTexture, i * 50, 350, true));
+			osmyRzad.push_back(new Pole(wallTexture, i * 50, 350, true));
 		}
 		board.push_back(osmyRzad);
 		break;
 	case Terrarium::mapType::empty:
 		for (int i = 0; i < sizeOfBoard; i++) {
-			pierwszyRzad.push_back(new Pole(&grassTexture, i * 50, 0, false));
+			pierwszyRzad.push_back(new Pole(grassTexture, i * 50, 0, false));
 		}
 		board.push_back(pierwszyRzad);
 		for (int i = 0; i < sizeOfBoard; i++) {
-			drugiRzad.push_back(new Pole(&grassTexture, i * 50, 50, false));
+			drugiRzad.push_back(new Pole(grassTexture, i * 50, 50, false));
 		}
 		board.push_back(drugiRzad);
 		for (int i = 0; i < sizeOfBoard; i++) {
-			trzeciRzad.push_back(new Pole(&grassTexture, i * 50, 100, false));
+			trzeciRzad.push_back(new Pole(grassTexture, i * 50, 100, false));
 		}
 		board.push_back(trzeciRzad);
 
 		for (int i = 0; i < sizeOfBoard; i++) {
-			czwartyRzad.push_back(new Pole(&grassTexture, i * 50, 150, false));
+			czwartyRzad.push_back(new Pole(grassTexture, i * 50, 150, false));
 		}
 		board.push_back(czwartyRzad);
 
 		for (int i = 0; i < sizeOfBoard; i++) {
-			piatyRzad.push_back(new Pole(&grassTexture, i * 50, 200, false));
+			piatyRzad.push_back(new Pole(grassTexture, i * 50, 200, false));
 		}
 		board.push_back(piatyRzad);
 
 		for (int i = 0; i < sizeOfBoard; i++) {
-			szostyRzad.push_back(new Pole(&grassTexture, i * 50, 250, false));
+			szostyRzad.push_back(new Pole(grassTexture, i * 50, 250, false));
 		}
 		board.push_back(szostyRzad);
 
 
 		for (int i = 0; i < sizeOfBoard; i++) {
-			siodmyRzad.push_back(new Pole(&grassTexture, i * 50, 300, false));
+			siodmyRzad.push_back(new Pole(grassTexture, i * 50, 300, false));
 		}
 		board.push_back(siodmyRzad);
 
 		for (int i = 0; i < sizeOfBoard; i++) {
-			osmyRzad.push_back(new Pole(&grassTexture, i * 50, 350, false));
+			osmyRzad.push_back(new Pole(grassTexture, i * 50, 350, false));
 		}
 		board.push_back(osmyRzad);
 		break;
 	case Terrarium::mapType::maze:
 		moveDirection = moveType::down;
-		pierwszyRzad.push_back(new Pole(&grassTexture, 0, 0, false));
-		pierwszyRzad.push_back(new Pole(&grassTexture, 50, 0, false));
-		pierwszyRzad.push_back(new Pole(&grassTexture, 100, 0, false));
-		pierwszyRzad.push_back(new Pole(&grassTexture, 150, 0, false));
-		pierwszyRzad.push_back(new Pole(&wallTexture, 200, 0, true));
-		pierwszyRzad.push_back(new Pole(&grassTexture, 250, 0, false));
-		pierwszyRzad.push_back(new Pole(&grassTexture, 300, 0, false));
-		pierwszyRzad.push_back(new Pole(&grassTexture, 350, 0, false));
+		pierwszyRzad.push_back(new Pole(grassTexture, 0, 0, false));
+		pierwszyRzad.push_back(new Pole(grassTexture, 50, 0, false));
+		pierwszyRzad.push_back(new Pole(grassTexture, 100, 0, false));
+		pierwszyRzad.push_back(new Pole(grassTexture, 150, 0, false));
+		pierwszyRzad.push_back(new Pole(wallTexture, 200, 0, true));
+		pierwszyRzad.push_back(new Pole(grassTexture, 250, 0, false));
+		pierwszyRzad.push_back(new Pole(grassTexture, 300, 0, false));
+		pierwszyRzad.push_back(new Pole(grassTexture, 350, 0, false));
 		board.push_back(pierwszyRzad);
 
-		drugiRzad.push_back(new Pole(&grassTexture, 0, 50, false));
-		drugiRzad.push_back(new Pole(&grassTexture, 50, 50, false));
-		drugiRzad.push_back(new Pole(&grassTexture, 100, 50, false));
-		drugiRzad.push_back(new Pole(&grassTexture, 150, 50, false));
-		drugiRzad.push_back(new Pole(&wallTexture, 200, 50, true));
-		drugiRzad.push_back(new Pole(&grassTexture, 250, 50, false));
-		drugiRzad.push_back(new Pole(&grassTexture, 300, 50, false));
-		drugiRzad.push_back(new Pole(&grassTexture, 350, 50, false));
+		drugiRzad.push_back(new Pole(grassTexture, 0, 50, false));
+		drugiRzad.push_back(new Pole(grassTexture, 50, 50, false));
+		drugiRzad.push_back(new Pole(grassTexture, 100, 50, false));
+		drugiRzad.push_back(new Pole(grassTexture, 150, 50, false));
+		drugiRzad.push_back(new Pole(wallTexture, 200, 50, true));
+		drugiRzad.push_back(new Pole(grassTexture, 250, 50, false));
+		drugiRzad.push_back(new Pole(grassTexture, 300, 50, false));
+		drugiRzad.push_back(new Pole(grassTexture, 350, 50, false));
 		board.push_back(drugiRzad);
-		trzeciRzad.push_back(new Pole(&grassTexture, 0, 100, false));
-		trzeciRzad.push_back(new Pole(&grassTexture, 50, 100, false));
-		trzeciRzad.push_back(new Pole(&grassTexture, 100, 100, false));
-		trzeciRzad.push_back(new Pole(&grassTexture, 150, 100, false));
-		trzeciRzad.push_back(new Pole(&wallTexture, 200, 100, true));
-		trzeciRzad.push_back(new Pole(&grassTexture, 250, 100, false));
-		trzeciRzad.push_back(new Pole(&grassTexture, 300, 100, false));
-		trzeciRzad.push_back(new Pole(&grassTexture, 350, 100, false));
+		trzeciRzad.push_back(new Pole(grassTexture, 0, 100, false));
+		trzeciRzad.push_back(new Pole(grassTexture, 50, 100, false));
+		trzeciRzad.push_back(new Pole(grassTexture, 100, 100, false));
+		trzeciRzad.push_back(new Pole(grassTexture, 150, 100, false));
+		trzeciRzad.push_back(new Pole(wallTexture, 200, 100, true));
+		trzeciRzad.push_back(new Pole(grassTexture, 250, 100, false));
+		trzeciRzad.push_back(new Pole(grassTexture, 300, 100, false));
+		trzeciRzad.push_back(new Pole(grassTexture, 350, 100, false));
 		board.push_back(trzeciRzad);
-		czwartyRzad.push_back(new Pole(&grassTexture, 0, 150, false));
-		czwartyRzad.push_back(new Pole(&grassTexture, 50, 150, false));
-		czwartyRzad.push_back(new Pole(&grassTexture, 100, 150, false));
-		czwartyRzad.push_back(new Pole(&grassTexture, 150, 150, false));
-		czwartyRzad.push_back(new Pole(&wallTexture, 200, 150, true));
-		czwartyRzad.push_back(new Pole(&grassTexture, 250, 150, false));
-		czwartyRzad.push_back(new Pole(&grassTexture, 300, 150, false));
-		czwartyRzad.push_back(new Pole(&grassTexture, 350, 150, false));
+		czwartyRzad.push_back(new Pole(grassTexture, 0, 150, false));
+		czwartyRzad.push_back(new Pole(grassTexture, 50, 150, false));
+		czwartyRzad.push_back(new Pole(grassTexture, 100, 150, false));
+		czwartyRzad.push_back(new Pole(grassTexture, 150, 150, false));
+		czwartyRzad.push_back(new Pole(wallTexture, 200, 150, true));
+		czwartyRzad.push_back(new Pole(grassTexture, 250, 150, false));
+		czwartyRzad.push_back(new Pole(grassTexture, 300, 150, false));
+		czwartyRzad.push_back(new Pole(grassTexture, 350, 150, false));
 		board.push_back(czwartyRzad);
-		piatyRzad.push_back(new Pole(&grassTexture, 0, 200, false));
-		piatyRzad.push_back(new Pole(&grassTexture, 50, 200, false));
-		piatyRzad.push_back(new Pole(&grassTexture, 100, 200, false));
-		piatyRzad.push_back(new Pole(&grassTexture, 150, 200, false));
-		piatyRzad.push_back(new Pole(&wallTexture, 200, 200, true));
-		piatyRzad.push_back(new Pole(&wallTexture, 250, 200, true));
-		piatyRzad.push_back(new Pole(&wallTexture, 300, 200, true));
-		piatyRzad.push_back(new Pole(&wallTexture, 350, 200, true));
+		piatyRzad.push_back(new Pole(grassTexture, 0, 200, false));
+		piatyRzad.push_back(new Pole(grassTexture, 50, 200, false));
+		piatyRzad.push_back(new Pole(grassTexture, 100, 200, false));
+		piatyRzad.push_back(new Pole(grassTexture, 150, 200, false));
+		piatyRzad.push_back(new Pole(wallTexture, 200, 200, true));
+		piatyRzad.push_back(new Pole(wallTexture, 250, 200, true));
+		piatyRzad.push_back(new Pole(wallTexture, 300, 200, true));
+		piatyRzad.push_back(new Pole(wallTexture, 350, 200, true));
 		board.push_back(piatyRzad);
 
 		for (int i = 0; i < sizeOfBoard; i++) {
-			szostyRzad.push_back(new Pole(&grassTexture, i * 50, 250, false));
+			szostyRzad.push_back(new Pole(grassTexture, i * 50, 250, false));
 		}
 		board.push_back(szostyRzad);
 
 
 		for (int i = 0; i < sizeOfBoard; i++) {
-			siodmyRzad.push_back(new Pole(&grassTexture, i * 50, 300, false));
+			siodmyRzad.push_back(new Pole(grassTexture, i * 50, 300, false));
 		}
 		board.push_back(siodmyRzad);
 
 		for (int i = 0; i < sizeOfBoard; i++) {
-			osmyRzad.push_back(new Pole(&grassTexture, i * 50, 350, false));
+			osmyRzad.push_back(new Pole(grassTexture, i * 50, 350, false));
 		}
 		board.push_back(osmyRzad);
 		break;
@@ -242,7 +244,7 @@ void Terrarium::generateFruit()
 		y = dist(generator);
 	} while (board[x][y]->isEmpty==false&& board[x][y]->isFruit==false);
 	board[x][y]->isFruit = true;
-	board[x][y]->setSprite(&fruitTexture);
+	board[x][y]->setSprite(fruitTexture);
 }
 
 void Terrarium::restartGame()
@@ -304,7 +306,7 @@ void Terrarium::move() {
 		for (int j = 0; j < sizeOfBoard; j++)
 		{
 			if (board[i][j]->snakeWeight == 1) {
-				board[i][j]->setSprite(&grassTexture);
+				board[i][j]->setSprite(grassTexture);
 				board[i][j]->isEmpty = true;
 				board[i][j]->snakeWeight= 0;
 			}else
@@ -313,7 +315,7 @@ void Terrarium::move() {
 		}
 	}
 	if(snakeLenght>1)
-		board[headPos.x][headPos.y]->setSprite(&bodyTexture);
+		board[headPos.x][headPos.y]->setSprite(bodyTexture);
 	switch (moveDirection)
 	{
 	case Terrarium::moveType::up:
@@ -367,7 +369,7 @@ void Terrarium::move() {
 	}
 	board[headPos.x][headPos.y]->snakeWeight = snakeLenght;
 	board[headPos.x][headPos.y]->isEmpty=false;
-	board[headPos.x][headPos.y]->setSprite(&headTexture);
+	board[headPos.x][headPos.y]->setSprite(headTexture);
 }
 void Terrarium::endGame(){
 	isEnd = true;

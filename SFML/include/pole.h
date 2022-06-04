@@ -6,13 +6,12 @@ class Pole
 private:
 	const bool isWall;
 public:
-	Pole(sf::Texture*,float, float, bool);
+	Pole(sf::Texture&,float, float, bool);
 	int snakeWeight;
 	bool isEmpty, isFruit;
 	sf::Vector2f pos;
-	sf::Texture texture;
 	sf::Sprite sprite;
-	bool setSprite(sf::Texture *);
+	bool setSprite(sf::Texture &);
 };
 
 #endif

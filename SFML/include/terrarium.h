@@ -17,12 +17,12 @@ private:
 	bool isEnd;
 	sf::Vector2i headPos;
 	int snakeLenght;
-	std::vector<std::vector<Pole *>> board;
+	std::vector<std::vector<Pole*>> board;
 	sf::Font arial;
 	sf::Text scoreText;
 	bool initializeFonts();
 	sf::Texture grassTexture, bodyTexture, headTexture,fruitTexture,wallTexture;
-	bool readTexture(std::string, sf::Texture *);
+	bool readTexture(std::string, sf::Texture &);
 	bool prepareTextures();
 	int sizeOfBoard;
 	
