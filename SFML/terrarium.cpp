@@ -1,8 +1,8 @@
 #include "terrarium.h"
 #include <iostream>
 #include <random>
-Terrarium::Terrarium(mapType rodzajMapy) {
-	typeOfMap = rodzajMapy;
+Terrarium::Terrarium(mapType newMapType) {
+	typeOfMap = newMapType;
 	sizeOfBoard = 8;
 
 	setUpInitialState();
@@ -27,7 +27,7 @@ bool Terrarium::prepareTextures()
 bool Terrarium::initializeFonts()
 {
 	if (!arial.loadFromFile("C:/Windows/Fonts/Arial.ttf")) {
-		std::cout << "Nie udalo sie wczytaæ czcionki\n";
+		std::cout << "Can't load font arial\n";
 		return false;
 	}
 	return true;
@@ -35,7 +35,7 @@ bool Terrarium::initializeFonts()
 bool Terrarium::readTexture(std::string name, sf::Texture *texture)
 {
 	if (!texture->loadFromFile(name)) {
-		std::cout << "Blad ladowania textury " <<name<< std::endl;
+		std::cout << "Loading texture error" <<name<< std::endl;
 		return false;
 	}
 	texture->setSmooth(true);
@@ -216,8 +216,8 @@ void Terrarium::setUpTiles() {
 		break;
 	}
 }
-void Terrarium::changeDirection(moveType nowyRuch) {
-	moveDirection = nowyRuch;
+void Terrarium::changeDirection(moveType newMove) {
+	moveDirection = newMove;
 }
 void Terrarium::extendSnake() {
 	snakeLenght++;
@@ -250,12 +250,12 @@ void Terrarium::restartGame()
 	setUpTiles();
 }
 
-void Terrarium::saveScoreToFile(std::string nazwaPliku)
+void Terrarium::saveScoreToFile(std::string nameOfFile)
 {
-	std::ofstream plik(nazwaPliku, std::ios::app);
+	std::ofstream plik(nameOfFile, std::ios::app);
 	if (!plik.is_open())
 		return;
-	plik << "Wynik: "<<snakeLenght<<std::endl;
+	plik << "Score: "<<snakeLenght<<std::endl;
 	plik.close();
 }
 
