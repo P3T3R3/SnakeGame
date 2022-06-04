@@ -122,8 +122,8 @@ int main()//przetwarza sterowanie u¿ytkownika, renderuje okno, tworzy obiekt gry
 
             Terrarium terrarium = Terrarium(selectedMapType);
             //obiekt ktory zajmuje sie logik¹ i wyœwietlaniem gry
-            int windowWidth = terrarium.getRozmiarPlanszy() * 50,
-                windowHeight = terrarium.getRozmiarPlanszy() * 50;
+            int windowWidth = terrarium.getSizeOfBoard() * 50,
+                windowHeight = terrarium.getSizeOfBoard() * 50;
             sf::Clock fruitClock, gameClock; //zegary gry
             sf::RenderWindow window(
                 sf::VideoMode(windowWidth, windowHeight),

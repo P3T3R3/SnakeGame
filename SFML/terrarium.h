@@ -10,7 +10,7 @@ public:
 	enum class moveType { up, down, right, left };
 	Terrarium(mapType);
 	void updateGameState(sf::RenderWindow*, sf::Clock*, sf::Clock*);
-	int getRozmiarPlanszy();
+	int getSizeOfBoard();
 	moveType getTypRuchu();
 	void changeDirection(moveType);
 private:
@@ -24,7 +24,7 @@ private:
 	sf::Texture grassTexture, bodyTexture, headTexture,fruitTexture,wallTexture;
 	bool readTexture(std::string, sf::Texture *);
 	bool prepareTextures();
-	int rozmiarPlanszy;
+	int sizeOfBoard;
 	
 	mapType typeOfMap;
 	moveType moveDirection;
@@ -37,7 +37,7 @@ private:
 	
 
 	void endGame();
-	void zapiszWynikDoPliku(std::string nazwaPliku);
+	void saveScoreToFile(std::string nazwaPliku);
 	void restartGame();
 };
 #endif
