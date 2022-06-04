@@ -1,11 +1,8 @@
-#include <SFML/Graphics.hpp>
-#include <Windows.h>
-#include "../include/menu.h"
-#include <iostream>
+#include "../include/gameDisplay.h"
 
 int main()
 {
-    Menu menu;
-    menu.loop();
+    GameDisplay game;
+    game.loop();
     return 0;
 }

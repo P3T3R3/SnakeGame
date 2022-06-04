@@ -24,7 +24,7 @@
     <ClCompile Include="src\terrarium.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="src\menu.cpp">
+    <ClCompile Include="src\gameDisplay.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>
@@ -40,7 +40,7 @@
     <ClInclude Include="include\terrarium.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="include\menu.h">
+    <ClInclude Include="include\gameDisplay.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="include\button.h">
