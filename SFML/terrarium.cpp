@@ -290,7 +290,7 @@ int Terrarium::getSizeOfBoard()
 	return sizeOfBoard;
 }
 
-Terrarium::moveType Terrarium::getTypRuchu()
+Terrarium::moveType Terrarium::getMoveDirection()
 {
 	return moveDirection;
 }

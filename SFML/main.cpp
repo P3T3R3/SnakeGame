@@ -146,19 +146,19 @@ int main()//przetwarza sterowanie u¿ytkownika, renderuje okno, tworzy obiekt gry
                             window.close();
                             break;
                         case sf::Keyboard::Up:
-                            if (terrarium.getTypRuchu() != Terrarium::moveType::down)
+                            if (terrarium.getMoveDirection() != Terrarium::moveType::down)
                                 terrarium.changeDirection(Terrarium::moveType::up);
                             break;
                         case sf::Keyboard::Down:
-                            if (terrarium.getTypRuchu() != Terrarium::moveType::up)
+                            if (terrarium.getMoveDirection() != Terrarium::moveType::up)
                                 terrarium.changeDirection(Terrarium::moveType::down);
                             break;
                         case sf::Keyboard::Right:
-                            if (terrarium.getTypRuchu() != Terrarium::moveType::left)
+                            if (terrarium.getMoveDirection() != Terrarium::moveType::left)
                                 terrarium.changeDirection(Terrarium::moveType::right);
                             break;
                         case sf::Keyboard::Left:
-                            if (terrarium.getTypRuchu() != Terrarium::moveType::right)
+                            if (terrarium.getMoveDirection() != Terrarium::moveType::right)
                                 terrarium.changeDirection(Terrarium::moveType::left);
                             break;
                         }

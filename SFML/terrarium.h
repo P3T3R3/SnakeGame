@@ -11,7 +11,7 @@ public:
 	Terrarium(mapType);
 	void updateGameState(sf::RenderWindow*, sf::Clock*, sf::Clock*);
 	int getSizeOfBoard();
-	moveType getTypRuchu();
+	moveType getMoveDirection();
 	void changeDirection(moveType);
 private:
 	bool isEnd;
@@ -34,8 +34,6 @@ private:
 	void extendSnake();
 	int generateRandomNumber();
 	void generateFruit();
-	
-
 	void endGame();
 	void saveScoreToFile(std::string nazwaPliku);
 	void restartGame();
