@@ -1,11 +1,11 @@
 #include "pole.h"
 #include <iostream>
 
-	Pole::Pole(sf::Texture*texture, float x, float y, bool czySciana=0) {
+	Pole::Pole(sf::Texture*texture, float x, float y, bool isWall_=0) {
 		if (!setSprite(texture))
 			return;
 		pos = sf::Vector2f(x, y);
-		isWall = czySciana;
+		isWall = isWall_;
 		if (isWall)
 			isEmpty = false;
 		else

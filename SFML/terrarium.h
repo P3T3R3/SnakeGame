@@ -6,7 +6,7 @@
 class Terrarium
 {
 public:
-	enum class mapType { pusta, granice, labirynt };
+	enum class mapType { empty, borders, maze };
 	enum class moveType { up, down, right, left };
 	Terrarium(mapType);
 	void updateGameState(sf::RenderWindow*, sf::Clock*, sf::Clock*);
@@ -17,7 +17,7 @@ private:
 	bool isEnd;
 	sf::Vector2i headPos;
 	int snakeLenght;
-	std::vector<std::vector<Pole *>> plansza;
+	std::vector<std::vector<Pole *>> board;
 	sf::Font arial;
 	sf::Text scoreText;
 	bool initializeFonts();
@@ -26,8 +26,8 @@ private:
 	bool prepareTextures();
 	int rozmiarPlanszy;
 	
-	mapType typMapy;
-	moveType typRuchu;
+	mapType typeOfMap;
+	moveType moveDirection;
 	void setUpInitialState();
 	void setUpTiles();
 	void move();

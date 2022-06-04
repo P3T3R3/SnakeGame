@@ -9,10 +9,10 @@ struct Button {
     sf::Text text;
     sf::RectangleShape shape;
     sf::Font arial;
-    Button(sf::Vector2f pozycja, sf::Vector2f rozmiar, std::string nazwa) {
-        position = pozycja;
-        size = rozmiar;
-        name = nazwa;
+    Button(sf::Vector2f position_, sf::Vector2f size_, std::string name_) {
+        position = position_;
+        size = size_;
+        name = name_;
         if (!initializeFonts())
             return;
 
@@ -29,7 +29,7 @@ struct Button {
     }
     bool initializeFonts() {
         if (!arial.loadFromFile("C:/Windows/Fonts/Arial.ttf")) {
-            std::cout << "Nie udalo sie wczytaæ czcionki\n";
+            std::cout << "Can't load font arial\n";
             return false;
         }
         return true;
@@ -45,7 +45,7 @@ struct Button {
     void setString(std::string newName) {
         text.setString(newName);
         text.setOrigin(sf::Vector2f(text.getGlobalBounds().width / 2,
-            text.getGlobalBounds().height / 2 + 10));
+        text.getGlobalBounds().height / 2 + 10));
     }
 
 };
@@ -54,13 +54,13 @@ int main()//przetwarza sterowanie u¿ytkownika, renderuje okno, tworzy obiekt gry
 
     bool isEnd=true;
     while (isEnd) {
-        Terrarium::mapType selectedMapType = Terrarium::mapType::pusta;
+        Terrarium::mapType selectedMapType = Terrarium::mapType::empty;
         sf::RenderWindow menu(sf::VideoMode(400, 400), "Menu");
         menu.setFramerateLimit(60);
         bool isGameStarted = false;
         Button startButton(sf::Vector2f(200, 150), sf::Vector2f(140.f, 50.f), "Start");
-        Button mapTypeButton(sf::Vector2f(200, 225), sf::Vector2f(140.f, 50.f), "Pusta");
-        Button quitButton(sf::Vector2f(200, 350), sf::Vector2f(140.f, 50.f), "Wyjdz");
+        Button mapTypeButton(sf::Vector2f(200, 225), sf::Vector2f(140.f, 50.f), "Empty");
+        Button quitButton(sf::Vector2f(200, 350), sf::Vector2f(140.f, 50.f), "Exit");
         sf::Text gameName;
         gameName.setFont(startButton.arial);
         gameName.setCharacterSize(50);
@@ -86,17 +86,17 @@ int main()//przetwarza sterowanie u¿ytkownika, renderuje okno, tworzy obiekt gry
                 }else
                 if (mapTypeButton.isClicked(localPosition)) {
                     switch (selectedMapType) {
-                    case Terrarium::mapType::pusta:
-                        selectedMapType = Terrarium::mapType::granice;
-                        mapTypeButton.setString("Granice");
+                    case Terrarium::mapType::empty:
+                        selectedMapType = Terrarium::mapType::borders;
+                        mapTypeButton.setString("Borders");
                         break;
-                    case Terrarium::mapType::granice:
-                        selectedMapType = Terrarium::mapType::labirynt;
-                        mapTypeButton.setString("Labirynt");
+                    case Terrarium::mapType::borders:
+                        selectedMapType = Terrarium::mapType::maze;
+                        mapTypeButton.setString("Maze");
                         break;
-                    case Terrarium::mapType::labirynt:
-                        selectedMapType = Terrarium::mapType::pusta;
-                        mapTypeButton.setString("Pusta");
+                    case Terrarium::mapType::maze:
+                        selectedMapType = Terrarium::mapType::empty;
+                        mapTypeButton.setString("Maze");
                         break;
                     }
                 }
