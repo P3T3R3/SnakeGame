@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <Windows.h>
-#include "terrarium.h"
+#include "../include/terrarium.h"
 #include <iostream>
 struct Button {
     sf::Vector2f position;

@@ -1,4 +1,4 @@
-#include "pole.h"
+#include "../include/pole.h"
 #include <iostream>
 
 	Pole::Pole(sf::Texture*texture, float x, float y, bool isWall_=0) {

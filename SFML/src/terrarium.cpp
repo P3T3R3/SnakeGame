@@ -1,4 +1,4 @@
-#include "terrarium.h"
+#include "../include/terrarium.h"
 #include <iostream>
 #include <random>
 Terrarium::Terrarium(mapType newMapType) {
