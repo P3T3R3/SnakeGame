@@ -1,5 +1,5 @@
 #include "../include/gameDisplay.h"
-GameDisplay::GameDisplay(unsigned int fps_ = 60):fps(fps_)
+GameDisplay::GameDisplay(unsigned int fps_):fps(fps_)
 {
 }
 void GameDisplay::loop() {
@@ -112,9 +112,10 @@ void GameDisplay::loop() {
                             if (terrarium.getMoveDirection() != Terrarium::moveType::right)
                                 terrarium.changeDirection(Terrarium::moveType::left);
                             break;
+                        default:
+                            break;
                         }
-                        //zmiana kierunku poruszania siê wê¿a
-                        //niedozwolona jest zmiana kierunku o 180 stopni
+                        //changing move direction is allowed only when snake turns 90 degrees
                         break;
                     default:
                         break;

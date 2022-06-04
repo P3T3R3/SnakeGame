@@ -48,6 +48,7 @@ void Terrarium::setUpInitialState() {
 	moveDirection = moveType::right;
 	snakeLenght = 1;
 
+	//setting up score display
 	scoreText.setFont(arial);
 	scoreText.setPosition(sf::Vector2f(sizeOfBoard * 50 - 40, 0));
 	scoreText.setOrigin(sf::Vector2f(0,0));
@@ -174,6 +175,7 @@ void Terrarium::setUpTiles() {
 		drugiRzad.emplace_back(grassTexture, 300, 50, false);
 		drugiRzad.emplace_back(grassTexture, 350, 50, false);
 		board.push_back(drugiRzad);
+
 		trzeciRzad.emplace_back(grassTexture, 0, 100, false);
 		trzeciRzad.emplace_back(grassTexture, 50, 100, false);
 		trzeciRzad.emplace_back(grassTexture, 100, 100, false);
@@ -183,6 +185,7 @@ void Terrarium::setUpTiles() {
 		trzeciRzad.emplace_back(grassTexture, 300, 100, false);
 		trzeciRzad.emplace_back(grassTexture, 350, 100, false);
 		board.push_back(trzeciRzad);
+
 		czwartyRzad.emplace_back(grassTexture, 0, 150, false);
 		czwartyRzad.emplace_back(grassTexture, 50, 150, false);
 		czwartyRzad.emplace_back(grassTexture, 100, 150, false);
@@ -192,6 +195,7 @@ void Terrarium::setUpTiles() {
 		czwartyRzad.emplace_back(grassTexture, 300, 150, false);
 		czwartyRzad.emplace_back(grassTexture, 350, 150, false);
 		board.push_back(czwartyRzad);
+
 		piatyRzad.emplace_back(grassTexture, 0, 200, false);
 		piatyRzad.emplace_back(grassTexture, 50, 200, false);
 		piatyRzad.emplace_back(grassTexture, 100, 200, false);
@@ -239,7 +243,7 @@ void Terrarium::extendSnake() {
 }
 void Terrarium::generateFruit()
 {
-	//generuje owoc w losowym i wolnym miejscu na mapie
+	//places fruit in random tile
 	std::random_device dev;
 	std::mt19937 generator(dev());
 	std::uniform_int_distribution<> dist(0, sizeOfBoard - 1);
@@ -267,7 +271,8 @@ void Terrarium::saveScoreToFile(std::string nameOfFile)
 	plik.close();
 }
 
-void Terrarium::updateGameState(sf::RenderWindow &window, sf::Clock &gameClock, sf::Clock &fruitClock)
+void Terrarium::updateGameState(sf::RenderWindow &window,
+	sf::Clock &gameClock, sf::Clock &fruitClock)
 {
 	for (int i = 0; i < sizeOfBoard; i++) {
 		for (int j = 0; j < sizeOfBoard; j++) {
@@ -319,8 +324,10 @@ void Terrarium::move() {
 				board[i][j].snakeWeight--;
 		}
 	}
+
 	if(snakeLenght>1)
 		board[headPos.x][headPos.y].setSprite(bodyTexture);
+
 	switch (moveDirection)
 	{
 	case Terrarium::moveType::up:
@@ -381,7 +388,8 @@ void Terrarium::endGame(){
 	std::cout << "Game over!" << std::endl;
 	std::cout << "Your score: " << snakeLenght << std::endl;
 	scoreText.setString("Game over!\nYour score: " + std::to_string(snakeLenght));
-	scoreText.setOrigin(sf::Vector2f(scoreText.getGlobalBounds().width / 2, scoreText.getGlobalBounds().height / 2));
+	scoreText.setOrigin(sf::Vector2f(scoreText.getGlobalBounds().width / 2,
+		scoreText.getGlobalBounds().height / 2));
 	scoreText.setPosition(sf::Vector2f(sizeOfBoard * 50 / 2, sizeOfBoard * 50 / 2));
 	saveScoreToFile("scoreboard.txt");
 	
