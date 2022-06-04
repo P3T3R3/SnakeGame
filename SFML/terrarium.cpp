@@ -232,6 +232,7 @@ void Terrarium::extendSnake() {
 }
 void Terrarium::generateFruit()
 {
+	//generuje owoc w losowym i wolnym miejscu na mapie
 	std::random_device dev;
 	std::mt19937 generator(dev());
 	std::uniform_int_distribution<> dist(0, sizeOfBoard - 1);
