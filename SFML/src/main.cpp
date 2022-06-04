@@ -3,9 +3,9 @@
 #include "../include/menu.h"
 #include <iostream>
 
-int main()//przetwarza sterowanie u¿ytkownika, renderuje okno, tworzy obiekt gry
+int main()
 {
-    Menu menu(60);
+    Menu menu;
     menu.loop();
     return 0;
 }

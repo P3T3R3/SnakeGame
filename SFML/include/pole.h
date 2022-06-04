@@ -4,7 +4,7 @@
 class Pole
 {
 private:
-	bool isWall;
+	const bool isWall;
 public:
 	Pole(sf::Texture*,float, float, bool);
 	int snakeWeight;

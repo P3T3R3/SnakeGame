@@ -9,7 +9,7 @@ public:
 	enum class mapType { empty, borders, maze };
 	enum class moveType { up, down, right, left };
 	Terrarium(mapType);
-	void updateGameState(sf::RenderWindow*, sf::Clock*, sf::Clock*);
+	void updateGameState(sf::RenderWindow&, sf::Clock&, sf::Clock&);
 	int getSizeOfBoard();
 	moveType getMoveDirection();
 	void changeDirection(moveType);

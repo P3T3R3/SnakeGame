@@ -8,9 +8,11 @@ void Menu::loop() {
         Terrarium::mapType selectedMapType = Terrarium::mapType::empty;
         menuWindow.setFramerateLimit(fps);
         bool isGameStarted = false;
+
         Button startButton(sf::Vector2f(200, 150), sf::Vector2f(140.f, 50.f), "Start");
         Button mapTypeButton(sf::Vector2f(200, 225), sf::Vector2f(140.f, 50.f), "Empty");
         Button quitButton(sf::Vector2f(200, 350), sf::Vector2f(140.f, 50.f), "Exit");
+
         sf::Text gameName;
         gameName.setFont(startButton.arial);
         gameName.setCharacterSize(50);
@@ -20,6 +22,7 @@ void Menu::loop() {
         gameName.setPosition(sf::Vector2f(200, 50));
         gameName.setOrigin(sf::Vector2f(gameName.getGlobalBounds().width / 2,
         gameName.getGlobalBounds().height / 2 + 10));
+
         while (menuWindow.isOpen()) {
             sf::Event event;
             while (
@@ -70,7 +73,7 @@ void Menu::loop() {
         if (isGameStarted) {
 
             Terrarium terrarium = Terrarium(selectedMapType);
-            //obiekt ktory zajmuje sie logik¹ i wyœwietlaniem gry
+            //obiekt ktory zajmuje sie logik¹ gry
             int windowWidth = terrarium.getSizeOfBoard() * 50,
                 windowHeight = terrarium.getSizeOfBoard() * 50;
             sf::Clock fruitClock, gameClock; //zegary gry
@@ -118,7 +121,7 @@ void Menu::loop() {
                     }
                 }
                 window.clear();
-                terrarium.updateGameState(&window, &gameClock, &fruitClock);
+                terrarium.updateGameState(window, gameClock, fruitClock);
                 window.display();
             }
         }

@@ -9,6 +9,7 @@ class Menu
 	unsigned int fps = 60;
 public:
 	void loop();
+	Menu()=default;
 	Menu(unsigned int);
 
 };

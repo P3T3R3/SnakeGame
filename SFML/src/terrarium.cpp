@@ -260,22 +260,22 @@ void Terrarium::saveScoreToFile(std::string nameOfFile)
 	plik.close();
 }
 
-void Terrarium::updateGameState(sf::RenderWindow *window, sf::Clock *gameClock, sf::Clock * fruitClock)
+void Terrarium::updateGameState(sf::RenderWindow &window, sf::Clock &gameClock, sf::Clock &fruitClock)
 {
 	for (int i = 0; i < sizeOfBoard; i++) {
 		for (int j = 0; j < sizeOfBoard; j++) {
-			window->draw(board[i][j]->sprite);
+			window.draw(board[i][j]->sprite);
 		}
 	}
 	if (!isEnd) {
-		if (gameClock->getElapsedTime() >= sf::milliseconds(200)) {
+		if (gameClock.getElapsedTime() >= sf::milliseconds(200)) {
 			scoreText.setString(std::to_string(snakeLenght));
 			move();
-			gameClock->restart();
+			gameClock.restart();
 		}
-		if (fruitClock->getElapsedTime() >= sf::seconds(3)) {
+		if (fruitClock.getElapsedTime() >= sf::seconds(3)) {
 			generateFruit();
-			fruitClock->restart();
+			fruitClock.restart();
 		}
 	}
 	/*else {
@@ -283,7 +283,7 @@ void Terrarium::updateGameState(sf::RenderWindow *window, sf::Clock *gameClock, 
 		restartGame();
 	}*/
 
-	window->draw(scoreText);
+	window.draw(scoreText);
 }
 
 int Terrarium::getSizeOfBoard()

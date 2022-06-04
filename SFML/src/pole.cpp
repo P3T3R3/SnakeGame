@@ -1,15 +1,10 @@
 #include "../include/pole.h"
 #include <iostream>
 
-	Pole::Pole(sf::Texture*texture, float x, float y, bool isWall_=0) {
-		if (!setSprite(texture))
-			return;
+	Pole::Pole(sf::Texture*texture, float x, float y, bool isWall_=0):isWall(isWall_) {
+		setSprite(texture);
 		pos = sf::Vector2f(x, y);
-		isWall = isWall_;
-		if (isWall)
-			isEmpty = false;
-		else
-			isEmpty = true;
+		isEmpty = !isWall;
 		isFruit = false;
 		snakeWeight = 0;
 		sprite.setPosition(pos);
