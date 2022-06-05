@@ -18,7 +18,7 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="src\pole.cpp">
+    <ClCompile Include="src\tile.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
     <ClCompile Include="src\terrarium.cpp">
@@ -34,7 +34,7 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\pole.h">
+    <ClInclude Include="include\tile.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="include\terrarium.h">

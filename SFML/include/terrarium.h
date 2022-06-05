@@ -1,4 +1,4 @@
-#include "pole.h"
+#include "tile.h"
 #include <vector>
 #include <fstream>
 #include <iostream>
@@ -33,9 +33,9 @@ private:
 
 	//board
 	const int sizeOfBoard;
-	std::vector<Pole> firstRow, secondRow, thirdRow, fourthRow,
+	std::vector<Tile> firstRow, secondRow, thirdRow, fourthRow,
 		fifthRow, sixthRow, seventhRow, eighthRow;
-	std::vector<std::vector<Pole>> board;
+	std::vector<std::vector<Tile>> board;
 
 	sf::Font arial;
 	sf::Text scoreText;

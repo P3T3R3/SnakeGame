@@ -145,7 +145,7 @@
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\gameDisplay.cpp" />
-    <ClCompile Include="src\pole.cpp" />
+    <ClCompile Include="src\tile.cpp" />
     <ClCompile Include="src\terrarium.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -154,7 +154,7 @@
   <ItemGroup>
     <ClInclude Include="include\button.h" />
     <ClInclude Include="include\gameDisplay.h" />
-    <ClInclude Include="include\pole.h" />
+    <ClInclude Include="include\tile.h" />
     <ClInclude Include="include\terrarium.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

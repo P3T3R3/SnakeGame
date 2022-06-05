@@ -325,6 +325,8 @@ void Terrarium::move() {
 	if(snakeLenght>1)
 		board[headPos.x][headPos.y].setSprite(bodyTexture);
 
+
+	//when at edge of board, snake teleports to opposite side
 	switch (moveDirection)
 	{
 	case Terrarium::moveType::up:
@@ -372,10 +374,12 @@ void Terrarium::move() {
 	default:
 		break;
 	}
+	//tile with fruit extends snake
 	if (board[headPos.x][headPos.y].isFruit) {
 		extendSnake();
 		board[headPos.x][headPos.y].isFruit = false;
 	}
+
 	board[headPos.x][headPos.y].snakeWeight = snakeLenght;
 	board[headPos.x][headPos.y].isEmpty = false;
 	board[headPos.x][headPos.y].setSprite(headTexture);
@@ -385,6 +389,7 @@ void Terrarium::endGame(){
 	std::cout << "Game over!" << std::endl;
 	std::cout << "Your score: " << snakeLenght << std::endl;
 
+	//game over message
 	scoreText.setString("Game over!\nYour score: " + std::to_string(snakeLenght));
 	scoreText.setOrigin(sf::Vector2f(scoreText.getGlobalBounds().width / 2,
 		scoreText.getGlobalBounds().height / 2));

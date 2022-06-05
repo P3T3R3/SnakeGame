@@ -1,13 +1,13 @@
 #include <SFML/Graphics.hpp>
-#ifndef POLE_H
-#define POLE_H
-class Pole
+#ifndef TILE_H
+#define TILE_H
+class Tile
 {
 private:
 	const bool isWall;
 public:
-	Pole(sf::Texture&,float, float, bool);
-	int snakeWeight;
+	Tile(sf::Texture&,float, float, bool);
+	int snakeWeight; //how many moves snake stays
 	bool isEmpty, isFruit;
 	sf::Vector2f pos;
 	sf::Sprite sprite;

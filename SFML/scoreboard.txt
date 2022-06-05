@@ -9,3 +9,7 @@ Score: 15
 Score: 18
 Score: 5
 Score: 9
+Score: 13
+Score: 5
+Score: 1
+Score: 2
