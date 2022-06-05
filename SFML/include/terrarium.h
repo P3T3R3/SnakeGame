@@ -21,13 +21,20 @@ public:
 	moveType getMoveDirection();
 	
 private:
+	
 	bool isEnd;
+
+	const unsigned int moveInterval=200;//in miliseconds
+	const unsigned int fruitInterval = 3;//in seconds
+
+	//snake
 	sf::Vector2i headPos;
 	int snakeLenght;
+
 	//board
 	const int sizeOfBoard;
-	std::vector<Pole> pierwszyRzad, drugiRzad, trzeciRzad, czwartyRzad,
-		piatyRzad, szostyRzad, siodmyRzad, osmyRzad;
+	std::vector<Pole> firstRow, secondRow, thirdRow, fourthRow,
+		fifthRow, sixthRow, seventhRow, eighthRow;
 	std::vector<std::vector<Pole>> board;
 
 	sf::Font arial;
@@ -49,7 +56,6 @@ private:
 	void generateFruit();
 	void endGame();
 	void saveScoreToFile(std::string nazwaPliku);
-	void restartGame();
 };
 #endif
 
